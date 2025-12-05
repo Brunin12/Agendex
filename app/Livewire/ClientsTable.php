@@ -7,6 +7,7 @@ use App\Models\Clients;
 
 class ClientsTable extends Component
 {
+    
     public function render()
     {
         return view('livewire.clients-table', [

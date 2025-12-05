@@ -7,12 +7,11 @@ use App\Models\Services;
 
 class ServicesController extends Controller
 {
-    public function list() {
-        $service = Services::with('user')->get();
-        return view('services/list', compact('service'));
+    public function index() {
+        return view('services/list');
     }
 
-    public function register() {
+    public function create() {
         return view('services/form', [
             'service' => null,
             'editing' => false

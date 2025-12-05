@@ -1,4 +1,12 @@
 <div wire:poll.2s>
+    <div class="flex flex-col w-[80%] mb-4">
+        <label class="text-sm text-white mb-1">
+            Pesquisar por Nome, Duração, Valor, etc...
+        </label>
+
+        <x-text-input type="text" wire:model.debounce.300ms="search" placeholder="Pesquisa..."
+            class="px-3 py-2 rounded border border-gray-800" />
+    </div>
     <table class="w-[80%] border border-gray-300 rounded-lg overflow-hidden table-auto">
         <thead class="bg-gray-100">
             <tr>

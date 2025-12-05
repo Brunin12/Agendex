@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ClientsController;
 use App\Http\Controllers\ServicesController;
+use App\Http\Controllers\AppointmentsController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware(['auth', 'verified'])->group(function () {
@@ -13,9 +14,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     // CLIENTES
 
-    Route::get('/clientes', [ClientsController::class, 'list'])->name('clients');
+    Route::get('/clientes', [ClientsController::class, 'index'])->name('clients');
 
-    Route::get('/clientes/novo', [ClientsController::class, 'register'])->name('clients.register');
+    Route::get('/clientes/novo', [ClientsController::class, 'create'])->name('clients.register');
     Route::post('/clientes/salvar', [ClientsController::class, 'store'])->name('clients.store');
 
     Route::get('/clientes/{client}/editar', [ClientsController::class, 'edit'])->name('clients.edit');
@@ -23,13 +24,23 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     // SERVIÇOS
 
-    Route::get('/servicos', [ServicesController::class, 'list'])->name('services');
+    Route::get('/servicos', [ServicesController::class, 'index'])->name('services');
 
-    Route::get('/servicos/novo', [ServicesController::class, 'register'])->name('services.register');
+    Route::get('/servicos/novo', [ServicesController::class, 'create'])->name('services.register');
     Route::post('/servicos/salvar', [ServicesController::class, 'store'])->name('services.store');
 
     Route::get('/servicos/{service}/editar', [ServicesController::class, 'edit'])->name('services.edit');
     Route::put('/servicos/{service}', [ServicesController::class, 'update'])->name('services.update');
+
+    // Agendamentos
+
+    Route::get('/agendamentos', [AppointmentsController::class, 'index'])->name('appointments');
+
+    Route::get('/agendamentos/novo', [AppointmentsController::class, 'create'])->name('appointments.register');
+    Route::post('/agendamentos/salvar', [AppointmentsController::class, 'store'])->name('appointments.store');
+
+    Route::get('/agendamentos/{appointment}/editar', [AppointmentsController::class, 'edit'])->name('appointments.edit');
+    Route::put('/agendamentos/{appointment}', [AppointmentsController::class, 'update'])->name('appointments.update');
 });
 
 Route::middleware('auth')->group(function () {

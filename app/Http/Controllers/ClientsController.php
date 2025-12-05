@@ -7,12 +7,11 @@ use App\Models\Clients;
 
 class ClientsController extends Controller
 {
-    public function list() {
-        $clients = Clients::with('user')->get();
-        return view('clients/list', compact('clients'));
+    public function index() {
+        return view('clients/list');
     }
 
-    public function register() {
+    public function create() {
         return view('clients/form', [
             'client' => null,
             'editing' => false

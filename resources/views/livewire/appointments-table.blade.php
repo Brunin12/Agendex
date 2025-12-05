@@ -1,59 +1,46 @@
-<div wire:poll.2s>
+<div wire:poll.2s class="space-y-4">
+
     <div class="flex flex-col w-[80%] mb-4">
         <label class="text-sm text-white mb-1">
-            Pesquisar por Nome, Telefone, Usuário Relacionado, etc..
+            Pesquisar por cliente ou serviço
         </label>
 
         <x-text-input type="text" wire:model.debounce.300ms="search" placeholder="Pesquisa..."
             class="px-3 py-2 rounded border border-gray-800" />
     </div>
+
+
     <table class="w-[80%] border border-gray-300 rounded-lg overflow-hidden table-auto">
         <thead class="bg-gray-100">
             <tr>
-                <th class="border border-gray-300 px-4 py-2 text-left font-semibold text-gray-700">
-                    ID
-                </th>
-                <th class="border border-gray-300 px-4 py-2 text-left font-semibold text-gray-700">
-                    Nome
-                </th>
-                <th class="border border-gray-300 px-4 py-2 text-left font-semibold text-gray-700">
-                    Telefone
-                </th>
-                <th class="border border-gray-300 px-4 py-2 text-left font-semibold text-gray-700">
-                    Observações
-                </th>
-                <th class="border border-gray-300 px-4 py-2 text-left font-semibold text-gray-700">
-                    Relacionado a
-                </th>
-                <th class="border border-gray-300 px-4 py-2 text-left font-semibold text-gray-700">
-                    Data de Criação
-                </th>
-                <th class="border border-gray-300 px-4 py-2 text-left font-semibold text-gray-700">
-                    Ultima Alteração
-                </th>
-                <th class="border border-gray-300 px-4 py-2 text-left font-semibold text-gray-700">
-                    Ações
-                </th>
+                <th class="border px-4 py-2 text-left font-semibold">ID</th>
+                <th class="border px-4 py-2 text-left font-semibold">Cliente</th>
+                <th class="border px-4 py-2 text-left font-semibold">Serviço</th>
+                <th class="border px-4 py-2 text-left font-semibold">Usuário</th>
+                <th class="border px-4 py-2 text-left font-semibold">Início</th>
+                <th class="border px-4 py-2 text-left font-semibold">Fim</th>
+                <th class="border px-4 py-2 text-left font-semibold">Status</th>
+                <th class="border px-4 py-2 text-left font-semibold">Ações</th>
             </tr>
         </thead>
         <tbody class="bg-white">
-            @foreach ($clients as $client)
+            @foreach ($appointments as $appointment)
                 <tr class="hover:bg-gray-50">
-                    <td class="border border-gray-300 px-4 py-2">{{ $client->id }}</td>
-                    <td class="border border-gray-300 px-4 py-2">{{ $client->name }}</td>
-                    <td class="border border-gray-300 px-4 py-2">{{ $client->telephone }}</td>
-                    <td class="border border-gray-300 px-4 py-2">{{ $client->notes }}</td>
-                    <td class="border border-gray-300 px-4 py-2"> {{ $client->user?->name ?? '—' }}</td>
-                    <td class="border border-gray-300 px-4 py-2">{{ $client->created_at }}</td>
-                    <td class="border border-gray-300 px-4 py-2">{{ $client->updated_at }}</td>
-                    <td class="border border-gray-300 px-4 py-2 flex gap-2">
-
-                        {{-- Editar --}}
-                        <a href="{{ route('clients.edit', $client->id) }}"
+                    <td class="border px-4 py-2">{{ $appointment->id }}</td>
+                    <td class="border px-4 py-2">{{ $appointment->client->name }}</td>
+                    <td class="border px-4 py-2">{{ $appointment->service->name }}</td>
+                    <td class="border px-4 py-2">{{ $appointment->user->name }}</td>
+                    <td class="border px-4 py-2">
+                        {{ \Carbon\Carbon::parse($appointment->start_time)->format('d/m/Y H:i') }}</td>
+                    <td class="border px-4 py-2">
+                        {{ \Carbon\Carbon::parse($appointment->end_time)->format('d/m/Y H:i') }}</td>
+                    <td class="border px-4 py-2">{{ ucfirst(__($appointment->status)) }}</td>
+                    <td class="border px-4 py-2 flex gap-2">
+                        <a href="{{ route('appointments.edit', $appointment->id) }}"
                             class="p-1 bg-blue-600 text-white rounded hover:bg-blue-700 transition">
                             <svg fill="#FFFFFF" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg"
-                                xmlns:xlink="http://www.w3.org/1999/xlink" class="h-4 w-4"
-                                viewBox="0 0 494.936 494.936" xml:space="preserve">
+                                xmlns:xlink="http://www.w3.org/1999/xlink" class="h-4 w-4" viewBox="0 0 494.936 494.936"
+                                xml:space="preserve">
                                 <g>
                                     <g>
                                         <path
@@ -71,9 +58,7 @@
                                 </g>
                             </svg>
                         </a>
-
-                        {{-- Excluir --}}
-                        <button wire:click="delete({{ $client->id }})"
+                        <button wire:click="delete({{ $appointment->id }})"
                             class="p-1 bg-red-600 text-white rounded hover:bg-red-700 transition">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
                                 stroke="currentColor">
@@ -81,11 +66,14 @@
                                     d="M6 18L18 6M6 6l12 12" />
                             </svg>
                         </button>
-
                     </td>
-
                 </tr>
             @endforeach
         </tbody>
     </table>
+
+    <!-- Paginação -->
+    <div class="mt-2">
+        {{ $appointments->links() }}
+    </div>
 </div>
