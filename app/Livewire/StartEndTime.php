@@ -13,6 +13,8 @@ class StartEndTime extends Component
 
     public $services;
 
+    public $minDateTime;
+
     // vem de fora
     public $service_id;
 
@@ -20,6 +22,8 @@ class StartEndTime extends Component
     {
         $this->service_id = $service_id;
         $this->services = Services::latest()->get();
+
+        $this->minDateTime = now()->format('Y-m-d\TH:i');
 
         // Se não vier start_time, define como agora + 3 min
         $this->start_time = $start_time

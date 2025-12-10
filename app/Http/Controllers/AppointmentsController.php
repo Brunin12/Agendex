@@ -19,6 +19,14 @@ class AppointmentsController extends Controller
     }
 
     /**
+     * Display a listing of the resource.
+     */
+    public function today()
+    {
+        return view('appointments.today');
+    }
+
+    /**
      * Show the form for creating a new resource.
      */
     public function create()

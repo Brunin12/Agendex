@@ -35,6 +35,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     // Agendamentos
 
     Route::get('/agendamentos', [AppointmentsController::class, 'index'])->name('appointments');
+    Route::get('/agendamentos/hoje', [AppointmentsController::class, 'today'])->name('appointments.today');
 
     Route::get('/agendamentos/novo', [AppointmentsController::class, 'create'])->name('appointments.register');
     Route::post('/agendamentos/salvar', [AppointmentsController::class, 'store'])->name('appointments.store');

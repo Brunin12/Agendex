@@ -21,7 +21,7 @@
         <label class="text-sm text-white">Início</label>
 
         <input type="datetime-local" wire:model.live="start_time" name='start_time' wire:update="calculateEndTime"
-            class="w-full rounded px-3 py-2 bg-gray-800 text-white border border-gray-600">
+            class="w-full rounded px-3 py-2 bg-gray-800 text-white border border-gray-600" min="{{ $minDateTime }}">
 
         @error('start_time')
             <span class="text-red-400 text-xs">{{ $message }}</span>
@@ -35,7 +35,7 @@
             <label class="text-sm text-white">Fim (previsão)</label>
 
             <input type="datetime-local" wire:model.live="end_time" name="end_time" readonly value="{{ $end_time }}"
-                class="w-full rounded px-3 py-2 bg-gray-800 text-white border border-gray-600">
+                class="w-full rounded px-3 py-2 bg-gray-800 text-white border border-gray-600" min="{{ $minDateTime }}">
 
         </div>
     @else

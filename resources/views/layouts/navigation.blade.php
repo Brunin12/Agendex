@@ -24,7 +24,7 @@
                     <x-nav-link :href="route('appointments')" :active="request()->routeIs('appointments', 'appointments.*')">
                         {{ __('Agendamentos') }}
                     </x-nav-link>
-                    <x-nav-link :href="route('clients')" :active="request()->routeIs('clients')">
+                    <x-nav-link :href="route('appointments.today')" :active="request()->routeIs('appointments.today')">
                         {{ __('Agenda do dia') }}
                     </x-nav-link>
                 </div>
