@@ -10,7 +10,7 @@
     </div>
 
 
-    <table class="w-[80%] border border-gray-300 rounded-lg overflow-hidden table-auto">
+    <table class="w-[80%] border border-gray-300 rounded-lg table-auto">
         <thead class="bg-gray-100">
             <tr>
                 <th class="border px-4 py-2 text-left font-semibold">Hora</th>
